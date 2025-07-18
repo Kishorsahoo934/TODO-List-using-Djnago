@@ -32,8 +32,6 @@ A simple yet powerful **Full Stack TODO List Web Application** built with **Djan
 ```bash
 git clone https://github.com/Kishorsahoo934/TODO-List-using-Djnago.git
 cd TODO-List-using-Djnago
-
-## 🔹 2.Folder Structure
 TODO-List-using-Django/
 ├── todolist/           # Django app
 ├── templates/          # HTML files
@@ -41,4 +39,3 @@ TODO-List-using-Django/
 ├── manage.py
 ├── requirements.txt
 └── README.md
-
