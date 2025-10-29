@@ -101,6 +101,9 @@ STATICFILES_DIRS = [
 # DEFAULT AUTO FIELD
 # ---------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = [
+    'https://todo-list-jkh9.onrender.com',
+]
 
 # ---------------------------------
 # 🔥 FIREBASE CONFIGURATION 🔥
