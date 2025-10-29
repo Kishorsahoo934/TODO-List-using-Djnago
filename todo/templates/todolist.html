@@ -8,7 +8,8 @@
         /* General Styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,18 +17,23 @@
             margin: 0;
         }
         
+        /* Semi-transparent overlay for readability */
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
         /* Container */
         .container {
             width: 500px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
         h2 {
             margin-bottom: 15px;
+            color: #333;
         }
 
         /* Form Styling */
@@ -65,7 +71,7 @@
         .table-container {
             margin-top: 15px;
             max-height: 300px;
-            overflow-y: auto; /* ✅ Scroll on small screens */
+            overflow-y: auto;
         }
 
         table {
@@ -92,9 +98,11 @@
         /* Buttons */
         .action-btn {
             text-decoration: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 5px;
             font-size: 14px;
+            display: inline-block;
+            margin: 2px;
         }
 
         .complete-btn {
@@ -119,53 +127,53 @@
         @media (max-width: 600px) {
             .container {
                 width: 90%;
-                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>To-Do List</h2>
+    <div class="overlay">
+        <div class="container">
+            <h2>To-Do List</h2>
 
-        <!-- ✅ Task Form -->
-        <form action="{% url 'createtodo' %}" method="POST">
-            {% csrf_token %}
-            <input type="text" name="title" placeholder="Task Title" required>
-            <textarea name="description" placeholder="Task Description" required></textarea>
-            <button type="submit">Add Task</button>
-        </form>
+            <!-- ✅ Task Form -->
+            <form action="{% url 'createtodo' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="Task Title" required>
+                <textarea name="description" placeholder="Task Description" required></textarea>
+                <button type="submit">Add Task</button>
+            </form>
 
-      
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sno</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for todo in todos %}
-                    <tr class="{% if todo.completed %}task-completed{% endif %}">
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ todo.title }}</td>
-                        <td>{{ todo.description }}</td>
-                        <td>
-                            {% if todo.completed %}
-                                <span style="color: green;">Completed</span>
-                            {% else %}
-                                <a class="action-btn complete-btn" href="{% url 'complete_todo' todo.id %}">Complete</a>
-                                <a class="action-btn delete-btn" href="{% url 'delete_todo' todo.id %}">Delete</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sno</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for todo in todos %}
+                        <tr class="{% if todo.completed %}task-completed{% endif %}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.description }}</td>
+                            <td>
+                                {% if todo.completed %}
+                                    <span style="color: green;">Completed</span>
+                                {% else %}
+                                    <a class="action-btn complete-btn" href="{% url 'complete_todo' todo.id %}">Complete</a>
+                                    <a class="action-btn delete-btn" href="{% url 'delete_todo' todo.id %}">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
