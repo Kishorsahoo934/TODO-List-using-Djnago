@@ -63,16 +63,16 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 # ---------------------------------
 # DATABASE (Local PostgreSQL)
 # ---------------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todo_django_app',
-        'USER': 'postgres',
-        'PASSWORD': '@Kishor789424',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'todo_django_app',
+#         'USER': 'postgres',
+#         'PASSWORD': '@Kishor789424',
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
 
 # ---------------------------------
 # PASSWORD VALIDATION
@@ -111,11 +111,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ---------------------------------
 # FIREBASE_KEY_PATH = os.path.join(BASE_DIR, r'K:\TODOList\todolist\todolist\chromacart-fo6vc-firebase-adminsdk-fbsvc-4d9f9ab960.json')
 
-# try:
-#     if not firebase_admin._apps:  # Prevent re-initialization
-#         cred = credentials.Certificate(FIREBASE_KEY_PATH)
-#         firebase_admin.initialize_app(cred, {
-#             'databaseURL': 'https://chromacart-fo6vc-default-rtdb.firebaseio.com'  # 👈 Replace with your database URL
-#         })
-# except Exception as e:
-#     print(f"Firebase initialization error: {e}")
+try:
+    if not firebase_admin._apps:  # Prevent re-initialization
+        cred = credentials.Certificate(FIREBASE_KEY_PATH)
+        firebase_admin.initialize_app(cred, {
+            'databaseURL': 'https://chromacart-fo6vc-default-rtdb.firebaseio.com'  # 👈 Replace with your database URL
+        })
+except Exception as e:
+    print(f"Firebase initialization error: {e}")
