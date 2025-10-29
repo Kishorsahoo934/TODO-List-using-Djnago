@@ -7,7 +7,6 @@ google-cloud-core==2.4.1
 google-cloud-firestore==2.18.0
 google-cloud-storage==2.18.2
 grpcio==1.67.1
-requests==2.32.3
-psycopg2-binary==2.9.9   # for PostgreSQL (you can remove if not using Postgres)
+requests==2.32.3  
 gunicorn==23.0.0         # for deployment on Render/Heroku/etc.
 whitenoise==6.7.0  
