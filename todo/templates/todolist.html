@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        /* Container */
+        .container {
+            width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* Table Styling */
+        .table-container {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto; /* ✅ Scroll on small screens */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        .task-completed {
+            background: #d4edda;
+            text-decoration: line-through;
+        }
+
+        /* Buttons */
+        .action-btn {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .complete-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: #218838;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>To-Do List</h2>
+
+        <!-- ✅ Task Form -->
+        <form action="{% url 'createtodo' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Task Title" required>
+            <textarea name="description" placeholder="Task Description" required></textarea>
+            <button type="submit">Add Task</button>
+        </form>
+
+      
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                    <tr class="{% if todo.completed %}task-completed{% endif %}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.description }}</td>
+                        <td>
+                            {% if todo.completed %}
+                                <span style="color: green;">Completed</span>
+                            {% else %}
+                                <a class="action-btn complete-btn" href="{% url 'complete_todo' todo.id %}">Complete</a>
+                                <a class="action-btn delete-btn" href="{% url 'delete_todo' todo.id %}">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
